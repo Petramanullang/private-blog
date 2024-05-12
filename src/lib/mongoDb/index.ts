@@ -1,29 +1,26 @@
-import { MongoClient } from "mongodb";
+import { MongoClient, Db } from "mongodb";
 
-declare var global: {
-  _mongoClientPromise?: Promise<MongoClient>;
+interface Config {
+  MONGODB_URI: string;
+  MONGODB_DB_NAME: string;
+}
+
+const DB_CONFIG: Config = {
+  MONGODB_URI: process.env.MONGODB_URI || "",
+  MONGODB_DB_NAME: process.env.MONGODB_DB_NAME || "",
 };
 
-const URI = process.env.MONGODB_URI || "";
-const option = {};
+const client = new MongoClient(DB_CONFIG.MONGODB_URI, { retryWrites: true });
 
-if (!URI) {
-  throw new Error(
-    "Please define the MONGODB_URI environment variable inside .env.local"
-  );
-}
-
-let client = new MongoClient(URI, option);
-let clientPromise
-
-if (process.env.NODE_ENV !== 'production') {
-  if(!global._mongoClientPromise) {
-    global._mongoClientPromise = client.connect();
+const db = async (func: (error: Error | null, db: Db) => Promise<any>) => {
+  try {
+    await client.connect();
+    await func(null, client.db());
+  } catch (error) {
+    throw error;
+  } finally {
+    client.close();
   }
+};
 
-  clientPromise = global._mongoClientPromise;
-}else {
-  clientPromise = client.connect();
-}
-
-export default clientPromise
+export { db };
