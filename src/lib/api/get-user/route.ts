@@ -1,4 +1,6 @@
-import { getUserList } from "@/services/users";
+// Sebagai Contoh untuk mengambil data user menggunakan API dari MongoDB
+
+import { getUserList } from "@/services/user";
 
 export async function GET(request: Request) {
   try {
@@ -23,3 +25,5 @@ export async function GET(request: Request) {
     );
   }
 }
+
+export { getUserList };
