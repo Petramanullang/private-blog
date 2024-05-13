@@ -21,8 +21,10 @@ export const getPostList = async (): Promise<ResponseService> => {
         .map((post: any) => ({
           ...post,
           _id: post._id.toString(),
-          created_date: new Date({ ...post.created_date }.high * 1000),
-          update_date: new Date({ ...post.update_date }.high * 1000),
+          created_date: new Date(
+            { ...post.created_date }.high * 1000
+          ).toString(),
+          update_date: new Date({ ...post.update_date }.high * 1000).toString(),
         }))
         .toArray();
     });
