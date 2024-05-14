@@ -82,6 +82,7 @@ export default function Post() {
         <div>
           <PostSkeleton />
           <PostSkeleton />
+          <PostSkeleton />
         </div>
       ) : (
         <div>

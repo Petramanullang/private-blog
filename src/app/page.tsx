@@ -7,7 +7,7 @@ import { getPostTagList } from "@/services/post_tag";
 import { getUserRoleList } from "@/services/user_role";
 import { getPostList } from "@/services/post";
 import Image from "next/image";
-import Post from "@/components/post";
+import Post from "@/components/fragments/post";
 import { Skeleton } from "@/components/ui/skeleton";
 
 interface UserRole {
@@ -220,7 +220,7 @@ export default function Home() {
   );
 }
 
-export function PostSkeleton() {
+const PostSkeleton = () => {
   return (
     <div className="my-5 space-y-2">
       <div className="flex items-center gap-2 relative">
@@ -231,4 +231,4 @@ export function PostSkeleton() {
       <Skeleton className="h-5 w-[100px]" />
     </div>
   );
-}
+};
