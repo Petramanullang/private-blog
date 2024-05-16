@@ -42,6 +42,36 @@ export const getPostList = async (): Promise<ResponseService> => {
   }
 };
 
+// Fungsi untuk mendapatkan post berdasarkan ID
+export const getPostById = async (id: string): Promise<ResponseService> => {
+  try {
+    let postById: any = null;
+    await db(async (error, db) => {
+      if (error) throw error;
+      const postDB = db.collection("post");
+      postById = await postDB.findOne({ _id: new ObjectId(id) });
+    });
+
+    if (!postById) {
+      return {
+        status: 404,
+        message: "Post not found",
+      };
+    }
+
+    return {
+      status: 200,
+      message: "Get post success",
+      data: postById,
+    };
+  } catch (error: any) {
+    return {
+      status: 500,
+      message: error.message,
+    };
+  }
+};
+
 // POST untuk membuat pengguna baru
 export const createPost = async (postData: any): Promise<ResponseService> => {
   try {
