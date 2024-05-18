@@ -6,7 +6,7 @@ import { getUserRoleList } from "@/services/user_role";
 import { getTagList } from "@/services/tag";
 import Image from "next/image";
 import { Skeleton } from "@/components/ui/skeleton";
-import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 interface Post {
   _id: string;
@@ -33,7 +33,6 @@ export default function Post() {
   const [tagList, setTagList] = useState<Tag[]>([]);
 
   const [loading, setLoading] = useState(true);
-  const router = useRouter();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -58,10 +57,6 @@ export default function Post() {
   const profile = userRoleList.find(
     (userRole) => userRole.description === "Admin"
   );
-
-  const handlePostClick = (id: string) => {
-    router.push(`/posts/${id}`);
-  };
 
   function timeAgo(time: any) {
     const currentTime = new Date();
@@ -93,10 +88,10 @@ export default function Post() {
       ) : (
         <div>
           {postList.map((post, index) => (
-            <div
+            <Link
+              href={`/posts/${post._id}`}
               key={index}
-              onClick={() => handlePostClick(post._id)}
-              className="mt-10 border-b cursor-pointer">
+              className="block mt-10 border-b cursor-pointer">
               <div className="flex gap-2">
                 <Image
                   src="/svg/Profile.svg"
@@ -136,7 +131,7 @@ export default function Post() {
                   className=""
                 />
               </div>
-            </div>
+            </Link>
           ))}
         </div>
       )}
