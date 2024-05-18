@@ -21,8 +21,10 @@ export const getPostList = async (): Promise<ResponseService> => {
         .map((post: any) => ({
           ...post,
           _id: post._id.toString(),
-          created_date: new Date({ ...post.created_date }.high * 1000),
-          update_date: new Date({ ...post.update_date }.high * 1000),
+          created_date: new Date(
+            { ...post.created_date }.high * 1000
+          ).toString(),
+          update_date: new Date({ ...post.update_date }.high * 1000).toString(),
         }))
         .toArray();
     });
@@ -31,6 +33,36 @@ export const getPostList = async (): Promise<ResponseService> => {
       status: 200,
       message: "Get List post Success",
       data: postList,
+    };
+  } catch (error: any) {
+    return {
+      status: 500,
+      message: error.message,
+    };
+  }
+};
+
+// Fungsi untuk mendapatkan post berdasarkan ID
+export const getPostById = async (id: string): Promise<ResponseService> => {
+  try {
+    let postById: any = null;
+    await db(async (error, db) => {
+      if (error) throw error;
+      const postDB = db.collection("post");
+      postById = await postDB.findOne({ _id: new ObjectId(id) });
+    });
+
+    if (!postById) {
+      return {
+        status: 404,
+        message: "Post not found",
+      };
+    }
+
+    return {
+      status: 200,
+      message: "Get post success",
+      data: postById,
     };
   } catch (error: any) {
     return {
