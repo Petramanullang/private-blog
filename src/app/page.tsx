@@ -8,6 +8,8 @@ import { getCommentList } from "@/services/comment";
 import { getCategoryList } from "@/services/category";
 import { getPostTagList } from "@/services/post_tag";
 import { getTagList } from "@/services/tag";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 
 interface User {
   _id: string;
@@ -90,62 +92,27 @@ export default function Home() {
 
   return (
     <main className="min-h-screen grid grid-cols-2 place-content-center justify-items-center">
-      {userList.map((item, index) => (
-        <div key={index} className="min-w-[300px]">
-          <h1 className="text-3xl font-bold my-6">List User</h1>
-          <p>id : {item._id}</p>
-          <p>username : {item.user_name}</p>
-          <p>fullname : {item.fullname}</p>
-          <p>is_Active : {item.is_active}</p>
-        </div>
-      ))}
-      {userRoleList.map((item, index) => (
-        <div key={index} className="min-w-[300px]">
-          <h1 className="text-3xl font-bold my-6">List User Role</h1>
-          <p>id : {item._id}</p>
-          <p>username : {item.name}</p>
-          <p>role : {item.description}</p>
-        </div>
-      ))}
-      {postList.map((item, index) => (
-        <div key={index} className="min-w-[300px]">
-          <h1 className="text-3xl font-bold my-6">List Post</h1>
-          <p>id : {item._id}</p>
-          <p>Title : {item.title}</p>
-          <p>Content : {item.content}</p>
-        </div>
-      ))}
-      {commentList.map((item, index) => (
-        <div key={index} className="min-w-[300px]">
-          <h1 className="text-3xl font-bold my-6">List Comment</h1>
-          <p>id : {item._id}</p>
-          <p>UserId : {item.user_id}</p>
-          <p>Content : {item.content}</p>
-        </div>
-      ))}
-      {categoryList.map((item, index) => (
-        <div key={index} className="min-w-[300px]">
-          <h1 className="text-3xl font-bold my-6">List Category</h1>
-          <p>id : {item._id}</p>
-          <p>Title : {item.title}</p>
-          <p>Description : {item.description}</p>
-        </div>
-      ))}
-      {postTagList.map((item, index) => (
-        <div key={index} className="min-w-[300px]">
-          <h1 className="text-3xl font-bold my-6">List Post Tag</h1>
-          <p>id : {item._id}</p>
-          <p>PostId : {item.post_id}</p>
-          <p>TagId : {item.tag_id}</p>
-        </div>
-      ))}
-      {tagList.map((item, index) => (
-        <div key={index} className="min-w-[300px]">
-          <h1 className="text-3xl font-bold my-6">List Tag</h1>
-          <p>id : {item._id}</p>
-          <p>Name : {item.name}</p>
-        </div>
-      ))}
+      <div className="w-full h-screen p-8 bg-[#18191a] col-span-1 flex flex-col justify-between text-white">
+        <span className="text-3xl">Logo</span>
+        <p className="text-lg w-[95%]">
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Pariatur
+          itaque delectus voluptas alias sint autem cumque praesentium
+          blanditiis qui!
+        </p>
+      </div>
+      <div className="w-full h-screen bg-[#08090a] cols-span-1 flex flex-col justify-center px-36 space-y-3">
+        <span className="text-white text-3xl text-center">
+          Welcome, to Idk What is this
+        </span>
+        <p className="text-white text-center">
+          Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+        </p>
+        <Input className="text-white" type="email" placeholder="Email" />
+        <Input className="text-white" type="text" placeholder="Password" />
+        <Button className="bg-white text-[#08090a] hover:bg-black hover:text-white hover:border-white hover:border">
+          Submit
+        </Button>
+      </div>
     </main>
   );
 }
